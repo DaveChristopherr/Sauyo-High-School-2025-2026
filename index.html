@@ -65,12 +65,14 @@
             letter-spacing: 1.5px;
         }
 
-        /* AsianWiki Style Grid */
+        /* TATLO KADA ROW NA LAYOUT */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 30px 15px;
+            grid-template-columns: repeat(3, 1fr); /* Eto ang nag-aayos para eksaktong 3 columns */
+            gap: 25px 10px;
             justify-items: center;
+            max-width: 650px; /* Nilimitahan ang lapad para hindi magkalayo-layo ang 3 pictures */
+            margin: 0 auto; /* Para gitna palagi ang grid */
         }
 
         .profile-card {
@@ -86,9 +88,10 @@
             transform: translateY(0);
         }
 
+        /* SAKTO LANG NA LIIT NA PICTURES */
         .profile-img {
-            width: 110px;
-            height: 145px;
+            width: 95px; 
+            height: 125px;
             object-fit: cover;
             border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -104,13 +107,13 @@
             color: #ffffff; 
             font-weight: 600;
             margin-top: 10px;
-            font-size: 0.95em;
+            font-size: 0.85em; /* Pinaliit din ng konti ang font para bumagay sa picture */
             line-height: 1.2;
         }
 
         .profile-role {
             color: #b3b3b3;
-            font-size: 0.8em;
+            font-size: 0.75em;
             margin-top: 3px;
         }
 
@@ -123,10 +126,16 @@
         }
 
         .adviser-card .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Circle like the principal's image */
+            width: 130px; /* Pinaliit din ng konti ang adviser */
+            height: 130px;
+            border-radius: 50%; 
             border: 3px solid var(--accent-yellow);
+        }
+
+        .adviser-card .profile-name {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-top: 15px;
         }
 
         /* Footer */
@@ -231,10 +240,6 @@
                 <div class="profile-name">Jan Lester Pahid Etomay</div>
             </div>
             <div class="profile-card">
-                <img src="ryan.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Ryan Kerub S. Flores</div>
-            </div>
-            <div class="profile-card">
                 <img src="rylie.jpg" alt="Student" class="profile-img">
                 <div class="profile-name">Rylie Miel S. Flores</div>
             </div>
@@ -263,11 +268,11 @@
                 <div class="profile-name">Kurt Kheffer Ablay Munoz</div>
             </div>
             <div class="profile-card">
-                <img src="pepito.jpg" alt="Student" class="profile-img">
+                <img src="https://via.placeholder.com/95x125/cccccc/666666?text=Default" alt="Student" class="profile-img">
                 <div class="profile-name">Dave Chrisper P. Pepito</div>
             </div>
             <div class="profile-card">
-                <img src="pulido.jpg" alt="Student" class="profile-img">
+                <img src="pulidu.jpg" alt="Student" class="profile-img">
                 <div class="profile-name">Jimwell Feliciano Pulido</div>
             </div>
             <div class="profile-card">
@@ -367,4 +372,4 @@
         });
     </script>
 </body>
-            </html>
+                    </html>
