@@ -29,11 +29,102 @@
             padding: 10px 20px;
             font-weight: bold;
             font-size: 0.9em;
+            position: relative;
+            z-index: 10;
         }
+
+        /* --- ADDED CSS FOR MENU & SIDEBAR --- */
+        .menu-bar {
+            padding: 15px 20px 0 20px;
+            background-color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-icon:hover span {
+            background-color: var(--accent-yellow);
+        }
+
+        /* Sidebar Overlay Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px; 
+            width: 250px;
+            height: 100%;
+            background-color: #081530; 
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0; 
+        }
+
+        .sidebar .close-btn {
+            font-size: 24px;
+            color: var(--text-light);
+            margin-left: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+
+        .sidebar .close-btn:hover {
+            color: var(--accent-yellow);
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-links li a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px 12px 30px;
+            font-size: 1.05em;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .sidebar-links li a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent-yellow);
+        }
+        /* --- END OF ADDED CSS --- */
 
         .hero {
             text-align: center;
-            padding: 40px 20px;
+            padding: 25px 20px 40px 20px; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -68,18 +159,18 @@
         /* TATLO KADA ROW NA LAYOUT */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Eto ang nag-aayos para eksaktong 3 columns */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 25px 10px;
             justify-items: center;
-            max-width: 650px; /* Nilimitahan ang lapad para hindi magkalayo-layo ang 3 pictures */
-            margin: 0 auto; /* Para gitna palagi ang grid */
+            max-width: 650px; 
+            margin: 0 auto; 
         }
 
         .profile-card {
             text-align: center;
             width: 100%;
-            opacity: 0; /* For JS Animation */
-            transform: translateY(20px); /* For JS Animation */
+            opacity: 0; 
+            transform: translateY(20px); 
             transition: all 0.6s ease-out;
         }
 
@@ -107,7 +198,7 @@
             color: #ffffff; 
             font-weight: 600;
             margin-top: 10px;
-            font-size: 0.85em; /* Pinaliit din ng konti ang font para bumagay sa picture */
+            font-size: 0.85em; 
             line-height: 1.2;
         }
 
@@ -126,7 +217,7 @@
         }
 
         .adviser-card .profile-img {
-            width: 130px; /* Pinaliit din ng konti ang adviser */
+            width: 130px; 
             height: 130px;
             border-radius: 50%; 
             border: 3px solid var(--accent-yellow);
@@ -152,6 +243,23 @@
     <header>
         Welcome to our Official Section Website! | S.Y. 2025-2026
     </header>
+
+    <div class="menu-bar">
+        <div class="menu-icon" id="menuToggle" title="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="closeBtn">&times;</div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
 
     <div class="hero">
         <h1>GRADE 7 PATERNO</h1>
@@ -350,6 +458,22 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // --- ADDED JS FOR MENU TOGGLE ---
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const closeBtn = document.getElementById('closeBtn');
+
+            // Open Sidebar
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+
+            // Close Sidebar
+            closeBtn.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+            // --- END OF ADDED JS ---
+
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
