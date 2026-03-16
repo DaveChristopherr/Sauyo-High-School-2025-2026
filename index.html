@@ -187,12 +187,26 @@
             border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
+            display: inline-block; /* Para sa invisible box */
         }
 
         .profile-img:hover {
             transform: scale(1.05);
             cursor: pointer;
         }
+
+        /* --- ADDED CSS PARA SA INVISIBLE CREATOR PHOTO --- */
+        .invisible-photo {
+            background-color: transparent;
+            border: 1.5px dashed rgba(255, 255, 255, 0.2); /* Manipis na putol-putol na linya */
+            box-shadow: none; /* Tinanggal ang shadow para flat at minimalist */
+            position: relative;
+        }
+
+        .invisible-photo:hover {
+            border-color: var(--accent-yellow); /* Magiging yellow ang border pag tinapatan */
+        }
+        /* ------------------------------------------------ */
 
         .profile-name {
             color: #ffffff; 
@@ -257,7 +271,7 @@
         <ul class="sidebar-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="aboutme.html">About</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </div>
 
@@ -375,9 +389,11 @@
                 <img src="munoz.jpg" alt="Student" class="profile-img">
                 <div class="profile-name">Kurt Kheffer Ablay Munoz</div>
             </div>
+
             <div class="profile-card">
-                <img src="https://via.placeholder.com/95x125/cccccc/666666?text=Default" alt="Student" class="profile-img">
-                <div class="profile-name">Dave Chrisper P. Pepito</div>
+                <div class="profile-img invisible-photo" title="Developer / Creator"></div>
+                <div class="profile-name" style="color: var(--accent-yellow);">Dave Chrisper P. Pepito</div>
+                <div class="profile-role">Website Creator</div>
             </div>
             <div class="profile-card">
                 <img src="pulido.jpg" alt="Student" class="profile-img">
@@ -458,21 +474,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- ADDED JS FOR MENU TOGGLE ---
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const closeBtn = document.getElementById('closeBtn');
 
-            // Open Sidebar
             menuToggle.addEventListener('click', function() {
                 sidebar.classList.add('active');
             });
 
-            // Close Sidebar
             closeBtn.addEventListener('click', function() {
                 sidebar.classList.remove('active');
             });
-            // --- END OF ADDED JS ---
 
             const observerOptions = {
                 root: null,
