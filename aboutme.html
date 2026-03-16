@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Grade 7 Paterno</title>
+    <style>
+        /* CSS STYLES - SAME THEME AS INDEX & GALLERY */
+        :root {
+            --primary-blue: #0b1d42; 
+            --accent-yellow: #fff04b; 
+            --text-light: #f4f6f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6; 
+        }
+
+        /* Header Section */
+        header {
+            background-color: var(--accent-yellow);
+            color: #333;
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Menu & Sidebar */
+        .menu-bar {
+            padding: 15px 20px 0 20px;
+            background-color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px; 
+            width: 250px;
+            height: 100%;
+            background-color: #081530; 
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0; 
+        }
+
+        .sidebar .close-btn {
+            font-size: 24px;
+            color: var(--text-light);
+            margin-left: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-links li a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 20px 12px 30px;
+            font-size: 1.05em;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 25px 20px 25px 20px; /* BINAWASAN ANG BOTTOM PADDING PARA ITAAS ANG CONTENT */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: #cccccc;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        /* Container & Content Box */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 25px 20px 40px 20px; /* BINAWASAN ANG TOP PADDING */
+        }
+
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 25px; /* PINALIIT NANG KONTI ANG PADDING SA LOOB */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* --- UPDATED MINIMALIST TRANSLATE ICON BUTTON --- */
+        .translate-btn {
+            position: absolute;
+            top: 12px; /* BINABAAN NANG KONTI PARA SAKTO */
+            right: 12px;
+            background-color: transparent; /* TRANSPARENT BACKGROUND */
+            color: var(--accent-yellow); /* DITO NA LANG ANG KULAY */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* SUBTLE BORDER */
+            width: 30px; /* PINALIIT ANG BUTTON */
+            height: 30px;
+            border-radius: 50%; 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .translate-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-yellow);
+            transform: scale(1.05);
+        }
+
+        .translate-btn svg {
+            width: 16px; /* PINALIIT ANG ICON SA LOOB */
+            height: 16px;
+        }
+
+        /* --- MINIMALIST TEXT STYLING --- */
+        .message-section h2 {
+            color: var(--accent-yellow);
+            margin-top: 0;
+            font-size: 1.3em; /* PINALIIT ANG TITLE PARA MINIMALIST */
+            margin-bottom: 15px;
+        }
+
+        .message-section p {
+            margin-bottom: 12px; /* BINABAAN ANG MARGIN SA BAWAT PARAGRAPH */
+            color: #d1d5db;
+            text-align: justify;
+            font-size: 0.9em; /* SAKTO LANG NA LAKI NG PARAGRAPH, PAREHO SA IBA */
+        }
+
+        /* --- EMAIL BOX --- */
+        .email-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-left: 4px solid var(--accent-yellow);
+            margin-top: 20px;
+            font-size: 0.9em;
+            text-align: center;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .email-box a {
+            color: var(--accent-yellow);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 3px;
+            font-size: 1.05em;
+        }
+
+        .email-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- SIGNATURE (PINALIIT) --- */
+        .signature {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85em; 
+            color: #b3b3b3;
+        }
+
+        .dev-name {
+            font-weight: bold;
+            color: var(--accent-yellow);
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 20px;
+            background-color: #07132b;
+            margin-top: 40px;
+            font-size: 0.75em;
+            color: #777;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Welcome to our Official Section Website! | S.Y. 2025-2026
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu-icon" id="menuToggle" title="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="closeBtn">&times;</div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
+
+    <div class="hero">
+        <h1>ABOUT THIS PROJECT</h1>
+        <p>A Space for Grade 7 Paterno</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="content-box">
+            <button class="translate-btn" id="translateBtn" title="Translate">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </button>
+
+            <div id="content-en" class="message-section">
+                <h2>The Purpose of This Website</h2>
+                
+                <p>Welcome to our official section website! I created this platform as a digital scrapbook to collect and preserve our happy memories as students of Grade 7 Paterno. Please note that this project is made purely for entertainment purposes and to give us something to look back on in the future.</p>
+                
+                <p>I would also like to take this opportunity to sincerely apologize if there are any profile pictures or images here that you might not like. The pictures I used were simply found online and cropped to fit the design layout. It is never my intention to embarrass anyone or cause any discomfort.</p>
+                
+                <p>If you wish to change your displayed photo, you can easily do so. Just send me your preferred formal picture, and I will update it right away. Furthermore, I am very open to suggestions. If you have any ideas, want to add new features, or have specific photos and videos you want to be included in our gallery, please do not hesitate to reach out.</p>
+
+                <div class="email-box">
+                    Drop your photos or suggestions here:<br>
+                    <a href="mailto:devxdave1@gmail.com">devxdave1@gmail.com</a>
+                </div>
+            </div>
+
+            <div id="content-tl" class="message-section hidden">
+                <h2>Ang Layunin ng Website na Ito</h2>
+                
+                <p>Maligayang pagdating sa ating official section website! Ginawa ko ang platform na ito upang magsilbing digital na tambayan at koleksyon ng ating mga masasayang alaala bilang mga mag-aaral ng Grade 7 Paterno. Ang proyektong ito ay ginawa purely for entertainment purposes lamang at para may mabalikan tayong magagandang memories sa hinaharap.</p>
+                
+                <p>Nais ko ring humingi ng paumanhin kung mayroon mang mga larawan na hindi ninyo nagustuhan. Ang mga pictures na ginamit dito ay nakita ko lamang at nai-crop para magkasya sa ating layout. Wala akong intensyon na mapahiya o maging discomfort ang sinuman sa inyo.</p>
+                
+                <p>Kung gusto ninyong palitan ang inyong profile picture, madali lang 'yan. Magpadala lang kayo ng inyong paboritong formal picture sa akin at papalitan ko agad ito. Bukas din ako sa anumang suggestions—kung may gusto kayong idagdag na features, impormasyon, o mga bagong larawan at videos sa ating gallery, sabihin niyo lang sa akin.</p>
+
+                <div class="email-box">
+                    Ipadala ang inyong pictures o suggestions dito:<br>
+                    <a href="mailto:devxdave1@gmail.com">devxdave1@gmail.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="signature">
+            Created by <span class="dev-name">devxdave ☕</span>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Grade 7 Paterno. For entertainment purposes only.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // JS FOR MENU TOGGLE
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const closeBtn = document.getElementById('closeBtn');
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+
+            // JS FOR TRANSLATE TOGGLE
+            const translateBtn = document.getElementById('translateBtn');
+            const contentEn = document.getElementById('content-en');
+            const contentTl = document.getElementById('content-tl');
+            
+            let isEnglish = true; 
+
+            translateBtn.addEventListener('click', function() {
+                if (isEnglish) {
+                    contentEn.classList.add('hidden');
+                    contentTl.classList.remove('hidden');
+                    isEnglish = false;
+                } else {
+                    contentTl.classList.add('hidden');
+                    contentEn.classList.remove('hidden');
+                    isEnglish = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
