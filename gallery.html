@@ -154,7 +154,7 @@
         /* --- STRICTLY 2 PER ROW GALLERY GRID --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Laging dalawa */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
             margin-bottom: 50px;
         }
@@ -167,6 +167,12 @@
             display: flex;
             flex-direction: column;
             animation: fadeIn 0.5s ease-in-out;
+            cursor: pointer; /* Pointer pag tinapatan ang buong card */
+            transition: transform 0.3s ease;
+        }
+
+        .media-card:hover {
+            transform: scale(1.03);
         }
 
         .media-card.hidden {
@@ -184,10 +190,32 @@
             background-color: #000;
         }
 
-        /* --- MALIIT LANG NA SIZE PARA SAKTO SA CELLPHONE --- */
+        /* Para sa play icon over videos sa grid */
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none; /* Hindi magi-interfere sa clicks */
+        }
+        
+        .video-overlay::after {
+            content: '▶';
+            color: var(--text-light);
+            font-size: 20px;
+            margin-left: 4px;
+        }
+
         .media-card img, .media-card video {
             width: 100%;
-            height: 130px; /* Eksakto lang na taas, hindi banat, hindi masyadong maliit */
+            height: 130px; 
             object-fit: cover; 
             display: block;
         }
@@ -201,6 +229,78 @@
             white-space: nowrap; 
             overflow: hidden;
             text-overflow: ellipsis; 
+        }
+
+        /* --- ADDED: LIGHTBOX (POP-UP) CSS --- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-content img, .lightbox-content video {
+            max-width: 100%;
+            max-height: 70vh; /* Sakto lang sa screen */
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            display: none; /* Nakatago hanggang i-trigger ng JS */
+        }
+
+        .lightbox-content img.active, .lightbox-content video.active {
+            display: block; /* Pinapakita lang yung pinindot */
+        }
+
+        .lightbox-caption {
+            color: var(--text-light);
+            margin-top: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-yellow);
+        }
+
+        /* Pigilang mag-scroll ang background pag bukas ang lightbox */
+        body.no-scroll {
+            overflow: hidden;
         }
 
         /* Footer */
@@ -266,9 +366,10 @@
 
             <div class="media-card" data-category="video">
                 <div class="media-content-wrap">
-                    <video controls>
+                    <video>
                         <source src="videos/dance-presentation.mp4" type="video/mp4">
                     </video>
+                    <div class="video-overlay"></div>
                 </div>
                 <div class="media-caption">Dance Pres</div>
             </div>
@@ -282,9 +383,10 @@
 
             <div class="media-card" data-category="video">
                 <div class="media-content-wrap">
-                    <video controls>
+                    <video>
                         <source src="videos/intramurals.mp4" type="video/mp4">
                     </video>
+                    <div class="video-overlay"></div>
                 </div>
                 <div class="media-caption">Intramurals</div>
             </div>
@@ -303,9 +405,20 @@
     <footer>
     </footer>
 
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Enlarged Photo">
+            <video id="lightboxVideo" controls>
+                <source id="lightboxVideoSrc" src="" type="video/mp4">
+            </video>
+            <div id="lightboxCaption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // JS FOR MENU TOGGLE
+            // --- MENU TOGGLE ---
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const closeBtn = document.getElementById('closeBtn');
@@ -318,7 +431,7 @@
                 sidebar.classList.remove('active');
             });
 
-            // JS FOR FILTERING PHOTOS & VIDEOS
+            // --- FILTERING PHOTOS & VIDEOS ---
             const filterBtns = document.querySelectorAll('.filter-btn');
             const mediaCards = document.querySelectorAll('.media-card');
 
@@ -337,6 +450,62 @@
                         }
                     });
                 });
+            });
+
+            // --- LIGHTBOX EFFECT (PAM-PALAKI NG PICTURE AT VIDEO) ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxVideo = document.getElementById('lightboxVideo');
+            const lightboxVideoSrc = document.getElementById('lightboxVideoSrc');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxCloseBtn = document.getElementById('lightboxClose');
+
+            // Kapag kinlick ang kahit anong card
+            mediaCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    const captionText = this.querySelector('.media-caption').innerText;
+
+                    // I-reset muna pareho
+                    lightboxImg.classList.remove('active');
+                    lightboxVideo.classList.remove('active');
+                    lightboxVideo.pause(); // I-stop ang video kung may nagpeplay
+
+                    if (category === 'photo') {
+                        // Pag photo ang pinindot
+                        const imgSrc = this.querySelector('img').src;
+                        lightboxImg.src = imgSrc;
+                        lightboxImg.classList.add('active');
+                    } else if (category === 'video') {
+                        // Pag video ang pinindot
+                        const vidSrc = this.querySelector('source').src;
+                        lightboxVideoSrc.src = vidSrc;
+                        lightboxVideo.load(); // I-load ang bagong video
+                        lightboxVideo.classList.add('active');
+                    }
+
+                    // Ilagay ang text at i-show ang lightbox
+                    lightboxCaption.innerText = captionText;
+                    lightbox.classList.add('show');
+                    document.body.classList.add('no-scroll'); // Pigilan mag-scroll ang likod
+                });
+            });
+
+            // Function pang-sara ng lightbox
+            function closeLightbox() {
+                lightbox.classList.remove('show');
+                document.body.classList.remove('no-scroll');
+                lightboxVideo.pause(); // I-stop ang video pag sinara
+            }
+
+            // Kapag pinindot yung 'X' sa taas
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+
+            // Kapag pinindot yung maitim na background sa labas ng picture/video
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                    closeLightbox();
+                }
             });
         });
     </script>
