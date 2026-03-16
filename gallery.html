@@ -19,6 +19,10 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            /* FLEXBOX PARA MAPUNTA SA BABANG BABA ANG FOOTER LINE */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Header Section */
@@ -125,12 +129,15 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 30px 15px; 
+            flex: 1; /* PUSHES THE FOOTER DOWN */
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* --- ALBUM GRID (Mga Folders/Covers) --- */
+        /* --- ALBUM GRID --- */
         .album-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 Albums kada row sa simula */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 20px; 
             margin-bottom: 50px;
         }
@@ -173,17 +180,17 @@
             font-weight: normal;
         }
 
-        /* --- PHOTO GRID (Loob ng Album - 3 KADA ROW) --- */
+        /* --- PHOTO GRID --- */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* STRICTLY 3 PHOTOS KADA ROW */
-            gap: 10px; /* Pinaliit ang gap para magkasya ang tatlo nang maayos */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
             margin-bottom: 50px;
         }
 
         .photo-item {
             width: 100%;
-            height: 110px; /* Sakto lang na height para sa 3 columns */
+            height: 110px; 
             object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
@@ -196,24 +203,37 @@
             z-index: 2;
         }
 
-        /* --- NAVIGATION BUTTONS --- */
+        /* --- MINIMALIST BACK ICON BUTTON --- */
         .back-btn {
             background-color: transparent;
-            color: var(--accent-yellow);
-            border: 1px solid var(--accent-yellow);
-            padding: 8px 20px;
-            font-size: 0.9em;
-            border-radius: 20px;
+            border: none;
             cursor: pointer;
             margin-bottom: 20px;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .back-btn svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--accent-yellow);
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease;
         }
 
         .back-btn:hover {
-            background-color: var(--accent-yellow);
-            color: var(--primary-blue);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-3px); /* Gumagalaw patalikod nang kaunti pag tinapatan */
         }
 
         .section-title {
@@ -226,7 +246,6 @@
             padding-bottom: 10px;
         }
 
-        /* Hide elements dynamically */
         .hidden {
             display: none !important;
         }
@@ -280,14 +299,12 @@
             overflow: hidden;
         }
 
-        /* Footer */
+        /* --- MINIMALIST BOTTOM BLUE LINE --- */
         footer {
-            text-align: center;
-            padding: 30px 20px;
-            background-color: #07132b;
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #777;
+            background-color: #07132b; /* Same blue color sa dating footer */
+            height: 12px; /* Manipis na linya lang */
+            width: 100%;
+            margin-top: auto; /* Pinipilit na ibaba nang tuluyan */
         }
     </style>
 </head>
@@ -323,18 +340,18 @@
         
         <div id="albumListView" class="album-grid">
             
-            <div class="album-card" onclick="openAlbum('album1', 'First Day of Classes')">
-                <img src="christmasparty.jpg" alt="Cover" class="album-cover">
+            <div class="album-card" onclick="openAlbum('album1', 'Christmas Party')">
+                <img src="christmasparty.jpeg" alt="Cover" class="album-cover" onerror="this.style.display='none'">
                 <div class="album-title">Christmas Party<span class="album-count">View Photos</span></div>
             </div>
 
-            <div class="album-card" onclick="openAlbum('album2', 'Buwan ng Wika 2025')">
-                <img src="adviserbirthday.jpg" alt="Cover" class="album-cover">
+            <div class="album-card" onclick="openAlbum('album2', 'Adviser\'s Birthday')">
+                <img src="adviserbirthday.jpeg" alt="Cover" class="album-cover" onerror="this.style.display='none'">
                 <div class="album-title">Adviser's Birthday <span class="album-count">View Photos</span></div>
             </div>
 
-            <div class="album-card" onclick="openAlbum('album3', 'Intramurals Highlights')">
-                <img src="photos/cover-intrams.jpg" alt="Cover" class="album-cover">
+            <div class="album-card" onclick="openAlbum('album3', 'Last Day with our Adviser')">
+                <img src="lastdaywithouradviser.jpeg" alt="Cover" class="album-cover" onerror="this.style.display='none'">
                 <div class="album-title">Last Day with our Adviser <span class="album-count">View Photos</span></div>
             </div>
 
@@ -342,73 +359,77 @@
 
 
         <div id="photosView" class="hidden">
-            <button class="back-btn" onclick="closeAlbum()">&#8592; Back to Albums</button>
+            <button class="back-btn" onclick="closeAlbum()" title="Back to Albums">
+                <svg viewBox="0 0 24 24">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
             <h2 id="currentAlbumTitle" class="section-title">Album Name</h2>
 
             <div id="album1" class="photo-grid album-content hidden">
-                <img src="christmasparty1.jpg" class="photo-item">
-                <img src="christmasparty2.jpg" class="photo-item">
-                <img src="christmasparty3.jpg" class="photo-item">
-                <img src="christmasparty4.jpg" class="photo-item">
-                <img src="christmasparty5.jpg" class="photo-item">
-                <img src="christmasparty6.jpg" class="photo-item">
-                <img src="christmasparty7.jpg" class="photo-item">
-                <img src="christmasparty8.jpg" class="photo-item">
-                <img src="christmasparty9.jpg" class="photo-item">
-                <img src="christmasparty10.jpg" class="photo-item">
-                <img src="christmasparty11.jpg" class="photo-item">
-                <img src="christmasparty12.jpg" class="photo-item">
-                <img src="christmasparty13.jpg" class="photo-item">
-                <img src="christmasparty14.jpg" class="photo-item">
-                <img src="christmasparty15.jpg" class="photo-item">
-                <img src="christmasparty16.jpg" class="photo-item">
-                <img src="christmasparty17.jpg" class="photo-item">
-                <img src="christmasparty18.jpg" class="photo-item">
-                <img src="christmasparty19.jpg" class="photo-item">
-                <img src="christmasparty20.jpg" class="photo-item">
-                <img src="christmasparty21.jpg" class="photo-item">
-                <img src="christmasparty23.jpg" class="photo-item">
-                <img src="christmasparty24.jpg" class="photo-item">
-                <img src="christmasparty25.jpg" class="photo-item">
-                <img src="christmasparty26.jpg" class="photo-item">
-                <img src="christmasparty27.jpg" class="photo-item">
-                <img src="christmasparty28.jpg" class="photo-item">
-                <img src="christmasparty29.jpg" class="photo-item">
-                <img src="christmasparty30.jpg" class="photo-item">
-                <img src="christmasparty31.jpg" class="photo-item">
-                <img src="christmasparty32.jpg" class="photo-item">
-                <img src="christmasparty33.jpg" class="photo-item">
-                <img src="christmasparty34.jpg" class="photo-item">
-                <img src="christmasparty35.jpg" class="photo-item">
+                <img src="christmasparty1.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty2.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty3.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty4.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty5.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty6.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty7.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty8.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty9.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty10.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty11.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty12.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty13.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty14.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty15.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty16.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty17.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty18.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty19.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty20.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty21.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty22.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty23.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty24.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty25.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty26.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty27.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty28.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty29.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty30.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty31.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty32.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty33.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty34.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="christmasparty35.jpeg" class="photo-item" onerror="this.style.display='none'">
             </div>
 
             <div id="album2" class="photo-grid album-content hidden">
-                <img src="adviserbirthday1.jpg" class="photo-item">
-                <img src="adviserbirthday2.jpg" class="photo-item">
-                <img src="adviserbirthday3.jpg" class="photo-item">
-                <img src="adviserbirthday4.jpg" class="photo-item">
-                <img src="adviserbirthday5.jpg" class="photo-item">
-                <img src="adviserbirthday6.jpg" class="photo-item">
-                <img src="adviserbirthday7.jpg" class="photo-item">
-                <img src="adviserbirthday8.jpg" class="photo-item">
-                <img src="adviserbirthday9.jpg" class="photo-item">
-                <img src="adviserbirthday10.jpg" class="photo-item">
-                <img src="adviserbirthday11.jpg" class="photo-item">
+                <img src="adviserbirthday1.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday2.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday3.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday4.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday5.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday6.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday7.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday8.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday9.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday10.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="adviserbirthday11.jpeg" class="photo-item" onerror="this.style.display='none'">
             </div>
 
             <div id="album3" class="photo-grid album-content hidden">
-                <img src="lastdaywithouradviser1.jpg" class="photo-item">
-                <img src="astdaywithouradviser2.jpg" class="photo-item">
-                <img src="astdaywithouradviser3.jpg" class="photo-item">
-                <img src="astdaywithouradviser4.jpg" class="photo-item">
+                <img src="lastdaywithouradviser1.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="lastdaywithouradviser2.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="lastdaywithouradviser3.jpeg" class="photo-item" onerror="this.style.display='none'">
+                <img src="lastdaywithouradviser4.jpeg" class="photo-item" onerror="this.style.display='none'">
             </div>
         </div>
 
     </div>
 
-    <footer>
-         
-    </footer>
+    <footer></footer>
 
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
@@ -418,7 +439,6 @@
     </div>
 
     <script>
-        // --- MENU TOGGLE ---
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const closeBtn = document.getElementById('closeBtn');
@@ -430,37 +450,29 @@
             sidebar.classList.remove('active');
         });
 
-        // --- ALBUM NAVIGATION SYSTEM ---
         const albumListView = document.getElementById('albumListView');
         const photosView = document.getElementById('photosView');
         const currentAlbumTitle = document.getElementById('currentAlbumTitle');
         const allAlbumContents = document.querySelectorAll('.album-content');
 
         function openAlbum(albumId, albumName) {
-            // Itago ang listahan ng mga album
             albumListView.classList.add('hidden');
-            
-            // Palitan ang title ng kung anong pinindot
             currentAlbumTitle.innerText = albumName;
             
-            // Itago lahat ng photos muna, tapos i-show lang yung tamang album
             allAlbumContents.forEach(content => {
                 content.classList.add('hidden');
             });
             document.getElementById(albumId).classList.remove('hidden');
 
-            // Ipakita ang photo view at umakyat sa taas
             photosView.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function closeAlbum() {
-            // Itago ang photo view at ibalik ang mga folders
             photosView.classList.add('hidden');
             albumListView.classList.remove('hidden');
         }
 
-        // --- LIGHTBOX (PAMPALAKI NG PICTURE) ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxCloseBtn = document.getElementById('lightboxClose');
@@ -481,7 +493,7 @@
 
         lightboxCloseBtn.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox) {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
                 closeLightbox();
             }
         });
