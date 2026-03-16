@@ -192,21 +192,9 @@
             cursor: pointer;
         }
 
-        @keyframes borderBreatheBlue {
-            0%, 100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 0 rgba(65, 105, 225, 0); }
-            50% { border-color: rgba(65, 105, 225, 0.6); box-shadow: 0 0 12px rgba(65, 105, 225, 0.4); }
-        }
-        
-        @keyframes iconBreatheBlue {
-            0%, 100% { fill: rgba(255, 255, 255, 0.1); }
-            50% { fill: rgba(65, 105, 225, 0.8); }
-        }
-
-        @keyframes textGlowBlue {
-            0%, 100% { text-shadow: 0 0 2px rgba(65, 105, 225, 0.1); }
-            50% { text-shadow: 0 0 8px rgba(65, 105, 225, 0.8); }
-        }
-
+        /* =======================================================
+           STATIC INVISIBLE PROFILE PARA KAY DAVE (NO GLOWING)
+           ======================================================= */
         .creator-photo-blue {
             width: 95px; 
             height: 125px;
@@ -217,7 +205,6 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            animation: borderBreatheBlue 4s ease-in-out infinite;
             margin: 0 auto;
         }
 
@@ -225,20 +212,18 @@
             width: 40px;
             height: 40px;
             fill: rgba(255, 255, 255, 0.1); 
-            animation: iconBreatheBlue 4s ease-in-out infinite;
+            transition: fill 0.3s ease;
         }
 
         .creator-photo-blue:hover {
             border-color: rgba(65, 105, 225, 1);
             box-shadow: 0 0 12px rgba(65, 105, 225, 0.6);
-            animation: none;
             transform: scale(1.05); 
             cursor: pointer;
         }
 
         .creator-photo-blue:hover svg {
             fill: rgba(65, 105, 225, 1);
-            animation: none;
         }
 
         .creator-name-white {
@@ -247,9 +232,11 @@
             font-size: 0.85em; 
             line-height: 1.2;
             margin-top: 10px;
-            animation: textGlowBlue 4s ease-in-out infinite;
         }
 
+        /* =======================================================
+           HEARTBEAT ANIMATION PARA KAY DALAWANPU 
+           ======================================================= */
         @keyframes softHeartbeat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
