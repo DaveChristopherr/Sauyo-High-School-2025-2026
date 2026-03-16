@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Section Website | Sauyo High School Theme</title>
     <style>
-        /* CSS STYLES */
         :root {
-            --primary-blue: #0b1d42; /* DepEd / Sauyo Dark Blue */
-            --accent-yellow: #fff04b; /* Banner Yellow */
+            --primary-blue: #0b1d42; 
+            --accent-yellow: #fff04b; 
             --text-light: #f4f6f9;
         }
 
@@ -19,9 +18,9 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            padding-bottom: 40px; 
         }
 
-        /* Header Section */
         header {
             background-color: var(--accent-yellow);
             color: #333;
@@ -33,7 +32,6 @@
             z-index: 10;
         }
 
-        /* --- ADDED CSS FOR MENU & SIDEBAR --- */
         .menu-bar {
             padding: 15px 20px 0 20px;
             background-color: var(--primary-blue);
@@ -68,7 +66,6 @@
             background-color: var(--accent-yellow);
         }
 
-        /* Sidebar Overlay Styling */
         .sidebar {
             position: fixed;
             top: 0;
@@ -120,7 +117,6 @@
             background-color: rgba(255, 255, 255, 0.05);
             color: var(--accent-yellow);
         }
-        /* --- END OF ADDED CSS --- */
 
         .hero {
             text-align: center;
@@ -139,7 +135,6 @@
             margin-top: 5px;
         }
 
-        /* Container & Sections */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -156,7 +151,10 @@
             letter-spacing: 1.5px;
         }
 
-        /* TATLO KADA ROW NA LAYOUT */
+        .title-center {
+            text-align: center;
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -179,7 +177,6 @@
             transform: translateY(0);
         }
 
-        /* SAKTO LANG NA LIIT NA PICTURES */
         .profile-img {
             width: 95px; 
             height: 125px;
@@ -187,7 +184,7 @@
             border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
-            display: inline-block; /* Para sa invisible box */
+            display: inline-block; 
         }
 
         .profile-img:hover {
@@ -195,25 +192,82 @@
             cursor: pointer;
         }
 
-        /* --- ADDED CSS PARA SA INVISIBLE CREATOR PHOTO --- */
-        .invisible-photo {
-            background-color: transparent;
-            border: 1.5px dashed rgba(255, 255, 255, 0.2); /* Manipis na putol-putol na linya */
-            box-shadow: none; /* Tinanggal ang shadow para flat at minimalist */
-            position: relative;
+        @keyframes borderBreatheBlue {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 0 rgba(65, 105, 225, 0); }
+            50% { border-color: rgba(65, 105, 225, 0.6); box-shadow: 0 0 12px rgba(65, 105, 225, 0.4); }
+        }
+        
+        @keyframes iconBreatheBlue {
+            0%, 100% { fill: rgba(255, 255, 255, 0.1); }
+            50% { fill: rgba(65, 105, 225, 0.8); }
         }
 
-        .invisible-photo:hover {
-            border-color: var(--accent-yellow); /* Magiging yellow ang border pag tinapatan */
+        @keyframes textGlowBlue {
+            0%, 100% { text-shadow: 0 0 2px rgba(65, 105, 225, 0.1); }
+            50% { text-shadow: 0 0 8px rgba(65, 105, 225, 0.8); }
         }
-        /* ------------------------------------------------ */
+
+        .creator-photo-blue {
+            width: 95px; 
+            height: 125px;
+            border-radius: 4px;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: borderBreatheBlue 4s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        .creator-photo-blue svg {
+            width: 40px;
+            height: 40px;
+            fill: rgba(255, 255, 255, 0.1); 
+            animation: iconBreatheBlue 4s ease-in-out infinite;
+        }
+
+        .creator-photo-blue:hover {
+            border-color: rgba(65, 105, 225, 1);
+            box-shadow: 0 0 12px rgba(65, 105, 225, 0.6);
+            animation: none;
+            transform: scale(1.05); 
+            cursor: pointer;
+        }
+
+        .creator-photo-blue:hover svg {
+            fill: rgba(65, 105, 225, 1);
+            animation: none;
+        }
+
+        .creator-name-white {
+            color: #ffffff; 
+            font-weight: 600;
+            font-size: 0.85em; 
+            line-height: 1.2;
+            margin-top: 10px;
+            animation: textGlowBlue 4s ease-in-out infinite;
+        }
+
+        @keyframes softHeartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .special-breathe {
+            animation: softHeartbeat 8s ease-in-out infinite;
+        }
 
         .profile-name {
             color: #ffffff; 
             font-weight: 600;
-            margin-top: 10px;
             font-size: 0.85em; 
             line-height: 1.2;
+        }
+
+        .normal-name {
+            margin-top: 10px;
         }
 
         .profile-role {
@@ -222,7 +276,6 @@
             margin-top: 3px;
         }
 
-        /* Adviser Special Layout */
         .adviser-card {
             display: flex;
             flex-direction: column;
@@ -241,14 +294,6 @@
             font-size: 1.2em;
             color: #ffffff;
             margin-top: 15px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #07132b;
-            margin-top: 50px;
         }
     </style>
 </head>
@@ -282,7 +327,7 @@
 
     <div class="container">
         
-        <h2 class="section-title">Class Adviser</h2>
+        <h2 class="section-title title-center">Class Adviser</h2>
         <div class="adviser-card profile-card">
             <img src="filipino.jpg" alt="Adviser" class="profile-img">
             <div class="profile-name">Millicynth B. Dalumpines</div>
@@ -293,42 +338,42 @@
         <div class="grid-container">
             <div class="profile-card">
                 <img src="math.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Ms. Emely A. Caneres</div>
+                <div class="profile-name normal-name">Ms. Emely A. Caneres</div>
                 <div class="profile-role">Math</div>
             </div>
             <div class="profile-card">
                 <img src="mapeh.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Mark Mariano</div>
+                <div class="profile-name normal-name">Mark Mariano</div>
                 <div class="profile-role">MAPEH</div>
             </div>
             <div class="profile-card">
                 <img src="science.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Ms. Leovy T. Panes</div>
+                <div class="profile-name normal-name">Ms. Leovy T. Panes</div>
                 <div class="profile-role">Science</div>
             </div>
             <div class="profile-card">
                 <img src="english.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Cha-Cha Cudia Crisostomo</div>
+                <div class="profile-name normal-name">Cha-Cha Cudia Crisostomo</div>
                 <div class="profile-role">English</div>
             </div>
             <div class="profile-card">
                 <img src="filo.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Millicynth B. Dalumpines</div>
+                <div class="profile-name normal-name">Millicynth B. Dalumpines</div>
                 <div class="profile-role">Filipino</div>
             </div>
             <div class="profile-card">
                 <img src="tle.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Ms. Eunice Esparas</div>
+                <div class="profile-name normal-name">Ms. Eunice Esparas</div>
                 <div class="profile-role">TLE</div>
             </div>
             <div class="profile-card">
                 <img src="ap.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Mark Larry H. Vargas</div>
+                <div class="profile-name normal-name">Mark Larry H. Vargas</div>
                 <div class="profile-role">Araling Panlipunan</div>
             </div>
             <div class="profile-card">
                 <img src="ve.jpg" alt="Teacher" class="profile-img">
-                <div class="profile-name">Ms. Michelle B. Adrian</div>
+                <div class="profile-name normal-name">Ms. Michelle B. Adrian</div>
                 <div class="profile-role">VE</div>
             </div>
         </div>
@@ -339,69 +384,73 @@
         <div class="grid-container">
             <div class="profile-card">
                 <img src="baltazar.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Jethro Besagas Baltazar</div>
+                <div class="profile-name normal-name">Jethro Besagas Baltazar</div>
             </div>
             <div class="profile-card">
                 <img src="bonita.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Johnbert Gorembalem Bonita</div>
+                <div class="profile-name normal-name">Johnbert Gorembalem Bonita</div>
             </div>
             <div class="profile-card">
                 <img src="camu.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">King James Colanza Camu</div>
+                <div class="profile-name normal-name">King James Colanza Camu</div>
             </div>
             <div class="profile-card">
                 <img src="contrillas.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Yael Joshua V. Contrillas</div>
+                <div class="profile-name normal-name">Yael Joshua V. Contrillas</div>
             </div>
             <div class="profile-card">
                 <img src="esplana.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Eulysis Opaon Esplana</div>
+                <div class="profile-name normal-name">Eulysis Opaon Esplana</div>
             </div>
             <div class="profile-card">
                 <img src="etomay.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Jan Lester Pahid Etomay</div>
+                <div class="profile-name normal-name">Jan Lester Pahid Etomay</div>
             </div>
             <div class="profile-card">
                 <img src="rylie.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Rylie Miel S. Flores</div>
+                <div class="profile-name normal-name">Rylie Miel S. Flores</div>
             </div>
             <div class="profile-card">
                 <img src="grengia.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Jeremiah Alfaro Grengia</div>
+                <div class="profile-name normal-name">Jeremiah Alfaro Grengia</div>
             </div>
             <div class="profile-card">
                 <img src="gutierrez.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Michael Alvarez Gutierrez</div>
+                <div class="profile-name normal-name">Michael Alvarez Gutierrez</div>
             </div>
             <div class="profile-card">
                 <img src="jaen.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Jaifer Shone Perez Jaen</div>
+                <div class="profile-name normal-name">Jaifer Shone Perez Jaen</div>
             </div>
             <div class="profile-card">
                 <img src="kho.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Lukasz Kho</div>
+                <div class="profile-name normal-name">Lukasz Kho</div>
             </div>
             <div class="profile-card">
                 <img src="mulato.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Rustine Lee C. Molato</div>
+                <div class="profile-name normal-name">Rustine Lee C. Molato</div>
             </div>
             <div class="profile-card">
                 <img src="munoz.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Kurt Kheffer Ablay Munoz</div>
+                <div class="profile-name normal-name">Kurt Kheffer Ablay Munoz</div>
             </div>
 
             <div class="profile-card">
-                <div class="profile-img invisible-photo" title="Developer / Creator"></div>
-                <div class="profile-name" style="color: var(--accent-yellow);">Dave Chrisper P. Pepito</div>
-                <div class="profile-role">Website Creator</div>
+                <div class="creator-photo-blue" title="Developer / Creator">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="creator-name-white">Dave Chrisper P. Pepito</div>
             </div>
+
             <div class="profile-card">
                 <img src="pulido.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Jimwell Feliciano Pulido</div>
+                <div class="profile-name normal-name">Jimwell Feliciano Pulido</div>
             </div>
             <div class="profile-card">
                 <img src="tuano.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Almojeeb Umpar Tuano</div>
+                <div class="profile-name normal-name">Almojeeb Umpar Tuano</div>
             </div>
         </div>
 
@@ -411,66 +460,63 @@
         <div class="grid-container">
             <div class="profile-card">
                 <img src="bravo.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Daria Victoria T. Bravo</div>
+                <div class="profile-name normal-name">Daria Victoria T. Bravo</div>
             </div>
             <div class="profile-card">
                 <img src="alterado.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Micaella Nicole Alterado</div>
+                <div class="profile-name normal-name">Micaella Nicole Alterado</div>
             </div>
             <div class="profile-card">
                 <img src="balaton.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Krizzy Tangtang Balaton</div>
+                <div class="profile-name normal-name">Krizzy Tangtang Balaton</div>
             </div>
             <div class="profile-card">
-                <img src="dalawanpu.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Azzira Rhazy O. Dalawanpu</div>
+                <img src="dalawanpu.jpg" alt="Student" class="profile-img special-breathe">
+                <div class="profile-name normal-name">Azzira Rhazy O. Dalawanpu</div>
             </div>
             <div class="profile-card">
                 <img src="dominguez.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Shane Maravilla Dominguez</div>
+                <div class="profile-name normal-name">Shane Maravilla Dominguez</div>
             </div>
             <div class="profile-card">
                 <img src="ison.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Shane Ison</div>
+                <div class="profile-name normal-name">Shane Ison</div>
             </div>
             <div class="profile-card">
                 <img src="ontal.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Ana Mie Humangpang Ontal</div>
+                <div class="profile-name normal-name">Ana Mie Humangpang Ontal</div>
             </div>
             <div class="profile-card">
                 <img src="pagkatipunan.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Princess May Pagkatipunan</div>
+                <div class="profile-name normal-name">Princess May Pagkatipunan</div>
             </div>
             <div class="profile-card">
                 <img src="piloneo.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Margaux Rojas Piloneo</div>
+                <div class="profile-name normal-name">Margaux Rojas Piloneo</div>
             </div>
             <div class="profile-card">
                 <img src="santos.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Breanna Dice L. Santos</div>
+                <div class="profile-name normal-name">Breanna Dice L. Santos</div>
             </div>
             <div class="profile-card">
                 <img src="sarsalijo.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Briana Diene Sarsalijo</div>
+                <div class="profile-name normal-name">Briana Diene Sarsalijo</div>
             </div>
             <div class="profile-card">
                 <img src="valencia.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Shakira Bagan Valencia</div>
+                <div class="profile-name normal-name">Shakira Bagan Valencia</div>
             </div>
             <div class="profile-card">
                 <img src="pacamparra.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Shamela Bagan Pacamparra</div>
+                <div class="profile-name normal-name">Shamela Bagan Pacamparra</div>
             </div>
             <div class="profile-card">
                 <img src="diaz.jpg" alt="Student" class="profile-img">
-                <div class="profile-name">Catherine Laumoc Diaz</div>
+                <div class="profile-name normal-name">Catherine Laumoc Diaz</div>
             </div>
         </div>
 
     </div>
-
-    <footer>
-    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
