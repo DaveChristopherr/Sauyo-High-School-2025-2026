@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Section Website | Sauyo High School Theme</title>
     <style>
         :root {
@@ -19,6 +19,7 @@
             padding: 0;
             line-height: 1.6;
             padding-bottom: 40px; 
+            touch-action: manipulation; 
         }
 
         header {
@@ -58,14 +59,6 @@
             transition: all 0.3s ease;
         }
 
-        .menu-icon:hover {
-            transform: scale(1.1);
-        }
-
-        .menu-icon:hover span {
-            background-color: var(--accent-yellow);
-        }
-
         .sidebar {
             position: fixed;
             top: 0;
@@ -91,11 +84,6 @@
             margin-bottom: 20px;
             cursor: pointer;
             display: inline-block;
-            transition: color 0.3s;
-        }
-
-        .sidebar .close-btn:hover {
-            color: var(--accent-yellow);
         }
 
         .sidebar-links {
@@ -110,12 +98,6 @@
             text-decoration: none;
             padding: 12px 20px 12px 30px;
             font-size: 1.05em;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .sidebar-links li a:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--accent-yellow);
         }
 
         .hero {
@@ -136,7 +118,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -155,13 +137,26 @@
             text-align: center;
         }
 
+        /* STRICTLY 3 COLUMNS */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 25px 10px;
             justify-items: center;
-            max-width: 650px; 
+            width: 100%; 
             margin: 0 auto; 
+        }
+
+        /* Mobile Adjustments para hindi sumikip ng sobra */
+        @media (max-width: 400px) {
+            .profile-img {
+                width: 75px !important; 
+                height: 100px !important;
+            }
+            .creator-photo-blue {
+                width: 75px !important; 
+                height: 100px !important;
+            }
         }
 
         .profile-card {
@@ -192,9 +187,6 @@
             cursor: pointer;
         }
 
-        /* =======================================================
-           STATIC INVISIBLE PROFILE PARA KAY DAVE (NO GLOWING)
-           ======================================================= */
         .creator-photo-blue {
             width: 95px; 
             height: 125px;
@@ -215,17 +207,6 @@
             transition: fill 0.3s ease;
         }
 
-        .creator-photo-blue:hover {
-            border-color: rgba(65, 105, 225, 1);
-            box-shadow: 0 0 12px rgba(65, 105, 225, 0.6);
-            transform: scale(1.05); 
-            cursor: pointer;
-        }
-
-        .creator-photo-blue:hover svg {
-            fill: rgba(65, 105, 225, 1);
-        }
-
         .creator-name-white {
             color: #ffffff; 
             font-weight: 600;
@@ -234,9 +215,6 @@
             margin-top: 10px;
         }
 
-        /* =======================================================
-           HEARTBEAT ANIMATION PARA KAY DALAWANPU 
-           ======================================================= */
         @keyframes softHeartbeat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
@@ -421,7 +399,6 @@
                 <img src="munoz.jpg" alt="Student" class="profile-img">
                 <div class="profile-name normal-name">Kurt Kheffer Ablay Munoz</div>
             </div>
-
             <div class="profile-card">
                 <div class="creator-photo-blue" title="Developer / Creator">
                     <svg viewBox="0 0 24 24">
@@ -430,7 +407,6 @@
                 </div>
                 <div class="creator-name-white">Dave Chrisper P. Pepito</div>
             </div>
-
             <div class="profile-card">
                 <img src="pulido.jpg" alt="Student" class="profile-img">
                 <div class="profile-name normal-name">Jimwell Feliciano Pulido</div>

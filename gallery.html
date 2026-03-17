@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gallery | Grade 7 Paterno</title>
     <style>
-        /* CSS STYLES - SAME THEME AS INDEX */
         :root {
             --primary-blue: #0b1d42; 
             --accent-yellow: #fff04b; 
@@ -19,25 +18,12 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            /* FLEXBOX PARA MAPUNTA SA BABANG BABA ANG FOOTER LINE */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            touch-action: manipulation;
         }
 
-        /* Header Section */
-        header {
-            background-color: var(--accent-yellow);
-            color: #333;
-            text-align: center;
-            padding: 10px 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Menu & Sidebar */
         .menu-bar {
             padding: 15px 20px 0 20px;
             background-color: var(--primary-blue);
@@ -105,7 +91,6 @@
             font-size: 1.05em;
         }
 
-        /* Hero Section */
         .hero {
             text-align: center;
             padding: 25px 20px 40px 20px; 
@@ -124,21 +109,20 @@
             font-size: 0.9em;
         }
 
-        /* Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 30px 15px; 
-            flex: 1; /* PUSHES THE FOOTER DOWN */
+            flex: 1; 
             width: 100%;
             box-sizing: border-box;
         }
 
-        /* --- ALBUM GRID --- */
-        .album-grid {
+        /* STRICTLY 3 COLUMNS PARA SA ALBUMS & PHOTOS */
+        .album-grid, .photo-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
             margin-bottom: 50px;
         }
 
@@ -160,14 +144,14 @@
 
         .album-cover {
             width: 100%;
-            height: 150px;
+            height: 100px; /* Inadjust ko height para umayos sa phone */
             object-fit: cover;
             border-bottom: 3px solid var(--accent-yellow);
         }
 
         .album-title {
-            padding: 15px 10px;
-            font-size: 1em;
+            padding: 10px 5px;
+            font-size: 0.9em;
             font-weight: bold;
             color: var(--text-light);
         }
@@ -180,17 +164,9 @@
             font-weight: normal;
         }
 
-        /* --- PHOTO GRID --- */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; 
-            margin-bottom: 50px;
-        }
-
         .photo-item {
             width: 100%;
-            height: 110px; 
+            height: 100px; /* Inadjust ko rin para mag-fit sa tatlo */
             object-fit: cover;
             border-radius: 4px;
             cursor: pointer;
@@ -203,7 +179,6 @@
             z-index: 2;
         }
 
-        /* --- MINIMALIST BACK ICON BUTTON --- */
         .back-btn {
             background-color: transparent;
             border: none;
@@ -232,10 +207,6 @@
             background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .back-btn:hover svg {
-            transform: translateX(-3px); /* Gumagalaw patalikod nang kaunti pag tinapatan */
-        }
-
         .section-title {
             font-size: 1.5em;
             color: var(--text-light);
@@ -250,7 +221,6 @@
             display: none !important;
         }
 
-        /* --- LIGHTBOX (POP-UP PICTURE) --- */
         .lightbox {
             position: fixed;
             top: 0;
@@ -277,15 +247,16 @@
             max-height: 80vh; 
             border-radius: 4px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            user-select: none;
         }
 
         .lightbox-close {
             position: absolute;
             top: 20px;
             right: 30px;
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 40px;
-            font-weight: bold;
+            font-weight: 300;
             cursor: pointer;
             transition: color 0.3s;
             z-index: 10001;
@@ -295,24 +266,37 @@
             color: var(--accent-yellow);
         }
 
-        body.no-scroll {
-            overflow: hidden;
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 50px;
+            font-weight: 300;
+            cursor: pointer;
+            user-select: none;
+            padding: 20px;
+            transition: color 0.3s, transform 0.3s;
+            z-index: 10002;
         }
 
-        /* --- MINIMALIST BOTTOM BLUE LINE --- */
-        footer {
-            background-color: #07132b; /* Same blue color sa dating footer */
-            height: 12px; /* Manipis na linya lang */
-            width: 100%;
-            margin-top: auto; /* Pinipilit na ibaba nang tuluyan */
+        .lightbox-nav:hover {
+            color: var(--accent-yellow);
+            transform: translateY(-50%) scale(1.1);
         }
+
+        .lightbox-prev { left: 10px; }
+        .lightbox-next { right: 10px; }
+
+        @media (max-width: 768px) {
+            .lightbox-nav { font-size: 35px; padding: 10px; }
+        }
+
+        body.no-scroll { overflow: hidden; }
+        footer { background-color: #07132b; height: 12px; width: 100%; margin-top: auto; }
     </style>
 </head>
 <body>
-
-    <header>
-        Welcome to our Official Section Website! | S.Y. 2025-2026
-    </header>
 
     <div class="menu-bar">
         <div class="menu-icon" id="menuToggle" title="Menu">
@@ -356,8 +340,7 @@
             </div>
 
         </div>
-
-
+        
         <div id="photosView" class="hidden">
             <button class="back-btn" onclick="closeAlbum()" title="Back to Albums">
                 <svg viewBox="0 0 24 24">
@@ -433,6 +416,8 @@
 
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</div>
+        <div class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</div>
         <div class="lightbox-content">
             <img id="lightboxImg" src="" alt="Enlarged Photo">
         </div>
@@ -476,15 +461,42 @@
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxCloseBtn = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
         const allPhotos = document.querySelectorAll('.photo-item');
+
+        let currentAlbumPhotos = [];
+        let currentPhotoIndex = 0;
 
         allPhotos.forEach(photo => {
             photo.addEventListener('click', function() {
-                lightboxImg.src = this.src;
+                const album = this.closest('.album-content');
+                currentAlbumPhotos = Array.from(album.querySelectorAll('.photo-item')).filter(p => p.style.display !== 'none');
+                currentPhotoIndex = currentAlbumPhotos.indexOf(this);
+
+                updateLightboxImage();
                 lightbox.classList.add('show');
                 document.body.classList.add('no-scroll');
             });
         });
+
+        function updateLightboxImage() {
+            if (currentAlbumPhotos.length > 0) {
+                lightboxImg.src = currentAlbumPhotos[currentPhotoIndex].src;
+            }
+        }
+
+        function showNextPhoto(e) {
+            if (e) e.stopPropagation(); 
+            currentPhotoIndex = (currentPhotoIndex + 1) % currentAlbumPhotos.length;
+            updateLightboxImage();
+        }
+
+        function showPrevPhoto(e) {
+            if (e) e.stopPropagation(); 
+            currentPhotoIndex = (currentPhotoIndex - 1 + currentAlbumPhotos.length) % currentAlbumPhotos.length;
+            updateLightboxImage();
+        }
 
         function closeLightbox() {
             lightbox.classList.remove('show');
@@ -492,11 +504,36 @@
         }
 
         lightboxCloseBtn.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrevPhoto);
+        lightboxNext.addEventListener('click', showNextPhoto);
+
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
                 closeLightbox();
             }
         });
+
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        lightbox.addEventListener('touchstart', function(e) {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', function(e) {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const SWIPE_THRESHOLD = 40; 
+            if (touchendX < touchstartX - SWIPE_THRESHOLD) {
+                showNextPhoto(); 
+            }
+            if (touchendX > touchstartX + SWIPE_THRESHOLD) {
+                showPrevPhoto(); 
+            }
+        }
     </script>
 </body>
 </html>

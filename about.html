@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>About | Grade 7 Paterno</title>
     <style>
-        /* CSS STYLES - SAME THEME AS INDEX & GALLERY */
         :root {
             --primary-blue: #0b1d42; 
             --accent-yellow: #fff04b; 
@@ -19,21 +18,9 @@
             margin: 0;
             padding: 0;
             line-height: 1.6; 
+            touch-action: manipulation;
         }
 
-        /* Header Section */
-        header {
-            background-color: var(--accent-yellow);
-            color: #333;
-            text-align: center;
-            padding: 10px 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Menu & Sidebar */
         .menu-bar {
             padding: 15px 20px 0 20px;
             background-color: var(--primary-blue);
@@ -101,10 +88,9 @@
             font-size: 1.05em;
         }
 
-        /* Hero Section */
         .hero {
             text-align: center;
-            padding: 25px 20px 25px 20px; /* BINAWASAN ANG BOTTOM PADDING PARA ITAAS ANG CONTENT */
+            padding: 25px 20px 25px 20px; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -120,31 +106,31 @@
             font-size: 0.9em;
         }
 
-        /* Container & Content Box */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 25px 20px 40px 20px; /* BINAWASAN ANG TOP PADDING */
+            padding: 25px 20px 40px 20px; 
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .content-box {
             background-color: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            padding: 25px; /* PINALIIT NANG KONTI ANG PADDING SA LOOB */
+            padding: 25px; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
         }
 
-        /* --- UPDATED MINIMALIST TRANSLATE ICON BUTTON --- */
         .translate-btn {
             position: absolute;
-            top: 12px; /* BINABAAN NANG KONTI PARA SAKTO */
+            top: 12px; 
             right: 12px;
-            background-color: transparent; /* TRANSPARENT BACKGROUND */
-            color: var(--accent-yellow); /* DITO NA LANG ANG KULAY */
-            border: 1px solid rgba(255, 255, 255, 0.2); /* SUBTLE BORDER */
-            width: 30px; /* PINALIIT ANG BUTTON */
+            background-color: transparent; 
+            color: var(--accent-yellow); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            width: 30px; 
             height: 30px;
             border-radius: 50%; 
             cursor: pointer;
@@ -161,26 +147,24 @@
         }
 
         .translate-btn svg {
-            width: 16px; /* PINALIIT ANG ICON SA LOOB */
+            width: 16px; 
             height: 16px;
         }
 
-        /* --- MINIMALIST TEXT STYLING --- */
         .message-section h2 {
             color: var(--accent-yellow);
             margin-top: 0;
-            font-size: 1.3em; /* PINALIIT ANG TITLE PARA MINIMALIST */
+            font-size: 1.3em; 
             margin-bottom: 15px;
         }
 
         .message-section p {
-            margin-bottom: 12px; /* BINABAAN ANG MARGIN SA BAWAT PARAGRAPH */
+            margin-bottom: 12px; 
             color: #d1d5db;
             text-align: justify;
-            font-size: 0.9em; /* SAKTO LANG NA LAKI NG PARAGRAPH, PAREHO SA IBA */
+            font-size: 0.9em; 
         }
 
-        /* --- EMAIL BOX --- */
         .email-box {
             background-color: rgba(0, 0, 0, 0.2);
             padding: 12px;
@@ -204,7 +188,6 @@
             text-decoration: underline;
         }
 
-        /* --- SIGNATURE (PINALIIT) --- */
         .signature {
             text-align: center;
             margin-top: 40px;
@@ -233,10 +216,6 @@
     </style>
 </head>
 <body>
-
-    <header>
-        Welcome to our Official Section Website! | S.Y. 2025-2026
-    </header>
 
     <div class="menu-bar">
         <div class="menu-icon" id="menuToggle" title="Menu">
@@ -314,7 +293,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // JS FOR MENU TOGGLE
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const closeBtn = document.getElementById('closeBtn');
@@ -327,7 +305,6 @@
                 sidebar.classList.remove('active');
             });
 
-            // JS FOR TRANSLATE TOGGLE
             const translateBtn = document.getElementById('translateBtn');
             const contentEn = document.getElementById('content-en');
             const contentTl = document.getElementById('content-tl');
